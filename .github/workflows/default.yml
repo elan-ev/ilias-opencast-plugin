@@ -26,7 +26,7 @@ jobs:
           push: true
           tags: opencast-ilias/reviewapps:${{ github.sha }}
           build-args: |
-            ILIAS_VERSION=srsolutions/ilias:latest
+            ILIAS_VERSION=latest
             TARGET_DIR=/var/www/html
             ILIAS_DEVMODE=1
             ILIAS_INSTALL_ARGUMENTS=

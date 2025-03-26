@@ -1,6 +1,6 @@
 [submodule "Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast"]
 	path = Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast
-	url = git@github.com:opencast-ilias/OpenCast.git
+	url = https://github.com/opencast-ilias/OpenCast.git
 [submodule "Customizing/global/plugins/Services/COPage/PageComponent/OpencastPageComponent"]
 	path = Customizing/global/plugins/Services/COPage/PageComponent/OpencastPageComponent
-	url = git@github.com:opencast-ilias/OpencastPageComponent.git
+	url = https://github.com/opencast-ilias/OpencastPageComponent.git

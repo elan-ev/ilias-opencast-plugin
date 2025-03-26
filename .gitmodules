@@ -1,0 +1,3 @@
+[submodule "Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast"]
+	path = Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast
+	url = git@github.com:opencast-ilias/OpenCast.git

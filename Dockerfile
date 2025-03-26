@@ -13,7 +13,4 @@ COPY . ${TARGET_DIR}
 
 RUN composer dump-autoload
 
-CMD ["apache2-foreground",
-    "-c", "StartServers 2",
-    "-c", "MinSpareServers 2",
-    "-c", "MaxSpareServers 5"]
+CMD ["apache2-foreground", "-c", "StartServers 2", "-c", "MinSpareServers 2", "-c", "MaxSpareServers 2"]

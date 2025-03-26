@@ -19,7 +19,6 @@ inputs:
   image_name:
     description: 'Resulting image name'
     default: 'ghcr.io/${{ github.repository }}:${{ github.sha }}'
-outputs:
 runs:
   using: 'docker'
   image: 'ghcr.io/opencast-ilias/docker-ilias-image-builder'
@@ -30,5 +29,4 @@ runs:
     CONTEXT: ${{ inputs.context }}
     DOCKERFILE: ${{ inputs.dockerfile }}
     DESTINATION: ${{ inputs.image_name }}
-  entrypoint:
-    - build-ilias-image
+  entrypoint: 'build-ilias-image'

@@ -33,7 +33,7 @@ jobs:
           push: true
           tags: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
           build-args: |
-            ILIAS_VERSION=latest
+            ILIAS_VERSION=9
             TARGET_DIR=/var/www/html
             ILIAS_DEVMODE=1
             ILIAS_INSTALL_ARGUMENTS=

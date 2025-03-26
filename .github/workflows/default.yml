@@ -16,23 +16,12 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: k8s-opencast
-
-    # Container configuration
-    container: ghcr.io/opencast-ilias/docker-ilias-image-builder
-    env:
-      ILIAS_IMAGE: $srsolutions/ilias:latest
-      TARGET_DIR: /var/www/html
-      ILIAS_INSTALL_ARGUMENTS:
-      CONTEXT:
-      DOCKERFILE:
-      DESTINATION:
+    #runs-on: k8s-opencast
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
-
-      # Build ILIAS image
-      - name: Build ILIAS image
-        run: build-ilias-image
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{ github.repository }}:${{ github.sha }}

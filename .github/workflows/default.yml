@@ -24,4 +24,4 @@ jobs:
       - uses: actions/checkout@v4
 
       # Build ILIAS image
-      - uses: .github/actions/build-ilias.yml
+      - uses: ./.github/actions/build-ilias.yml

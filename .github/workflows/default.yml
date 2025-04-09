@@ -35,4 +35,4 @@ jobs:
           TARGET_DIR: /var/www/html
           DESTINATION: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
         with:
-          entrypoint: build-ilias-image
+          entrypoint: /usr/local/bin/build-ilias-image

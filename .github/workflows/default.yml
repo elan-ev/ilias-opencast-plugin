@@ -43,3 +43,4 @@ jobs:
           DESTINATION: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
         with:
           entrypoint: /usr/local/bin/build-ilias-image
+          args: --skip-push-permission-check

@@ -34,4 +34,5 @@ jobs:
           ILIAS_IMAGE: "srsolutions/ilias:9"
           TARGET_DIR: /var/www/html
           DESTINATION: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
-        run: build-ilias-image
+        with:
+          entrypoint: build-ilias-image

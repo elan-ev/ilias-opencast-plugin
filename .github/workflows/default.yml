@@ -32,13 +32,6 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build ILIAS image
         uses: docker://ghcr.io/opencast-ilias/docker-ilias-image-builder
         env:

@@ -37,7 +37,7 @@ jobs:
         env:
           ILIAS_IMAGE: "srsolutions/ilias:9"
           TARGET_DIR: /var/www/html
-          DESTINATION: ghcr.io/${{ github.repository }}:${{ github.sha }}
+          DESTINATION: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
           REGISTRY: ghcr.io
           REGISTRY_USER: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
@@ -65,7 +65,7 @@ jobs:
         run: >
           helm upgrade --install ilias oci://registry-1.docker.io/srsolutions/ilias
           --namespace review-${{ github.ref_name }} --create-namespace
-          --set image.repository=ghcr.io/${{ github.repository }}
+          --set image.repository=ghcr.io/opencast-ilias/reviewapps
           --set image.tag=${{ github.sha }}
           --set revisionHistoryLimit=1
           --set-json args='["apache2-foreground", "-c", "StartServers 1", "-c", "MinSpareServers 1", "-c", "MaxSpareServers 2"]'

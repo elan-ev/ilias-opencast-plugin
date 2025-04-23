@@ -45,5 +45,9 @@ jobs:
           ILIAS_IMAGE: "srsolutions/ilias:9"
           TARGET_DIR: /var/www/html
           DESTINATION: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
+          REGISTRY: ghcr.io
+          REGISTRY_USER: ${{ github.actor }}
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         with:
           entrypoint: /usr/local/bin/build-ilias-image
+          args: --skip-push-permission-check

@@ -64,7 +64,7 @@ jobs:
       - name: Deploy the Helm chart
         run: >
           helm upgrade --install ilias oci://registry-1.docker.io/srsolutions/ilias
-          --namespace review-${{ github.ref_name }} --create-namespace
+          --namespace review-test --create-namespace
           --set image.repository=ghcr.io/opencast-ilias/reviewapps
           --set image.tag=${{ github.sha }}
           --set revisionHistoryLimit=1

@@ -32,9 +32,6 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Test
-        run: ls -l
-
       - name: Build ILIAS image
         uses: docker://ghcr.io/opencast-ilias/docker-ilias-image-builder
         env:
@@ -47,9 +44,6 @@ jobs:
         with:
           entrypoint: /usr/local/bin/build-ilias-image
           args: --skip-push-permission-check
-
-      - name: Test 2
-        run: ls -l
 
   deploy:
     runs-on: k8s-opencast

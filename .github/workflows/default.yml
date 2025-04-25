@@ -32,6 +32,9 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Test
+        run: ls -la ${{ github.workspace }}
+
       - name: Fix permissions
         run: chown -R 33:33 ${{ github.workspace }}
 

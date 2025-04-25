@@ -20,9 +20,6 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: k8s-opencast
-    container:
-      image: ghcr.io/opencast-ilias/docker-ilias-image-builder
-
     # Set permissions of the job
     permissions:
       contents: read
@@ -36,6 +33,7 @@ jobs:
           fetch-depth: 1
 
       - name: Build ILIAS image
+        uses: docker://ghcr.io/opencast-ilias/docker-ilias-image-builder
         env:
           ILIAS_IMAGE: "srsolutions/ilias:9"
           TARGET_DIR: /var/www/html
@@ -43,7 +41,9 @@ jobs:
           REGISTRY: ghcr.io
           REGISTRY_USER: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: /usr/local/bin/build-ilias-image
+        with:
+          entrypoint: /usr/local/bin/build-ilias-image
+          args: --skip-push-permission-check
 
   deploy:
     runs-on: k8s-opencast

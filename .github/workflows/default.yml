@@ -51,9 +51,6 @@ jobs:
     runs-on: k8s-opencast
     needs: build
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Install Helm
         uses: azure/setup-helm@v4
 

@@ -32,6 +32,9 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Fix permissions
+        run: chown -R 33:33 ${{ github.workspace }}
+
       - name: Build ILIAS image
         uses: docker://ghcr.io/opencast-ilias/docker-ilias-image-builder
         env:

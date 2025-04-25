@@ -10,7 +10,7 @@ ENV ILIAS_DEVMODE=${ILIAS_DEVMODE}
 ENV ILIAS_INSTALL_ARGUMENTS=${ILIAS_INSTALL_ARGUMENTS}
 
 COPY . ${TARGET_DIR}
-RUN chown www-data:www-data ${TARGET_DIR}
+RUN chown www-data:www-data .
 
 RUN composer dump-autoload
 

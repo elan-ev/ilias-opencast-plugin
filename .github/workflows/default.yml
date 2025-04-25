@@ -62,16 +62,10 @@ jobs:
 
       - name: Deploy the Helm chart
         run: >
-          helm upgrade --install ilias oci://registry-1.docker.io/srsolutions/ilias
+          helm upgrade --install ilias oci://registry-1.docker.io/srsolutions/ilias-review
           --namespace review-test --create-namespace
           --set image.repository=ghcr.io/opencast-ilias/reviewapps
           --set image.tag=${{ github.sha }}
-          --set revisionHistoryLimit=1
-          --set-json args='["apache2-foreground", "-c", "StartServers 1", "-c", "MinSpareServers 1", "-c", "MaxSpareServers 2"]'
-          --set persistence.size=1Gi
-          --set mariadb.primary.persistence.size=1Gi
-          --set mariadb.primary.extraFlags='--innodb_buffer_pool_size=33554432 --key_buffer_size=10485760'
-          --set persistence.storageClass=cloudscale-volume-ssd
           --set ingress.enabled=true
           --set ingress.hostname=test.opencast.k8s.sr.solutions
           --set iliasRootPassword=review

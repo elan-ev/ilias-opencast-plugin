@@ -36,7 +36,7 @@ jobs:
         uses: docker://ghcr.io/opencast-ilias/docker-ilias-image-builder
         env:
           ILIAS_IMAGE: "srsolutions/ilias:9"
-          CONTEXT: /github/workspace
+          CONTEXT: ${{ github.workspace }}
           TARGET_DIR: /var/www/html
           DESTINATION: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
           REGISTRY: ghcr.io

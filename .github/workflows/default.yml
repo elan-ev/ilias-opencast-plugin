@@ -34,7 +34,7 @@ jobs:
           submodules: true
 
       - name: Build ILIAS image
-        uses: ./.github/actions/build-ilias
+        uses: opencast-ilias/actions/build-ilias
         with:
           ilias_image: "srsolutions/ilias:9"
           destination: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
@@ -54,7 +54,7 @@ jobs:
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy the Helm chart
-        uses: ./.github/actions/deploy-ilias
+        uses: opencast-ilias/actions/deploy-ilias
         with:
           namespace: review-test
           image_repository: ghcr.io/opencast-ilias/reviewapps

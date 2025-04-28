@@ -58,4 +58,4 @@ jobs:
           namespace: review-release-9
           image_repository: ghcr.io/opencast-ilias/reviewapps
           image_tag: ${{ github.sha }}
-          ingress_hostname: release_9.opencast.k8s.sr.solutions
+          ingress_hostname: release-9.opencast.k8s.sr.solutions

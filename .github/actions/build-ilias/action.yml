@@ -1,0 +1,32 @@
+name: 'Build ILIAS'
+description: 'Builds an ILIAS container image'
+inputs:
+  ilias_image:
+    description: 'ILIAS base image to use'
+    default: 'srsolutions/ilias:latest'
+  target_dir:
+    description: 'Target directory'
+    default: '/var/www/html'
+  ilias_install_arguments:
+    description: 'ILIAS install arguments'
+    default: ''
+  context:
+    description: 'Docker context'
+    default: '${{ github.workspace }}'
+  dockerfile:
+    description: 'Dockerfile to use'
+    default: 'Dockerfile'
+  destination:
+    description: 'Resulting image destination (e.g. image name)'
+    default: 'ghcr.io/${{ github.repository }}:${{ github.sha }}'
+runs:
+  using: 'docker'
+  image: 'ghcr.io/opencast-ilias/docker-ilias-image-builder'
+  env:
+    ILIAS_IMAGE: ${{ inputs.ilias_image }}
+    TARGET_DIR: ${{ inputs.target_dir }}
+    ILIAS_INSTALL_ARGUMENTS: ${{ inputs.ilias_install_arguments }}
+    CONTEXT: ${{ inputs.context }}
+    DOCKERFILE: ${{ inputs.dockerfile }}
+    DESTINATION: ${{ inputs.destination }}
+  entrypoint: 'build-ilias-image'

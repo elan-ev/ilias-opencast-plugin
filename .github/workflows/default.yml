@@ -34,18 +34,14 @@ jobs:
           submodules: true
 
       - name: Build ILIAS image
-        uses: docker://ghcr.io/opencast-ilias/docker-ilias-image-builder
+        uses: ./.github/actions/build-ilias
         env:
-          ILIAS_IMAGE: "srsolutions/ilias:9"
-          CONTEXT: ${{ github.workspace }}
-          TARGET_DIR: /var/www/html
-          DESTINATION: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
           REGISTRY: ghcr.io
           REGISTRY_USER: ${{ github.actor }}
           REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         with:
-          entrypoint: /usr/local/bin/build-ilias-image
-          args: --skip-push-permission-check
+          ilias_image: "srsolutions/ilias:9"
+          destination: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
 
   deploy:
     runs-on: k8s-opencast

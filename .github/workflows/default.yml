@@ -55,7 +55,7 @@ jobs:
       - name: Deploy the Helm chart
         uses: opencast-ilias/actions/deploy-ilias@main
         with:
-          namespace: review-release_9
+          namespace: review-release-9
           image_repository: ghcr.io/opencast-ilias/reviewapps
           image_tag: ${{ github.sha }}
           ingress_hostname: release_9.opencast.k8s.sr.solutions

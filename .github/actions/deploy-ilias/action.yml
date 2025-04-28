@@ -1,0 +1,37 @@
+name: 'Deploy ILIAS'
+description: 'Deploy an ILIAS container image to a kubernetes cluster'
+inputs:
+  helm_chart:
+    description: 'Helm chart to use'
+    default: 'oci://registry-1.docker.io/srsolutions/ilias'
+  namespace:
+    description: 'Namespace to deploy to'
+  image_repository:
+    description: 'ILIAS image to deploy'
+    default: 'ghcr.io/${{ github.repository }}'
+  image_tag:
+    description: 'ILIAS image tag to deploy'
+    default: '${{ github.sha }}'
+  ingress_hostname:
+    description: 'Hostname for ingress traffic'
+  ilias_root_password:
+    description: 'Root password for ILIAS'
+    default: 'review'
+runs:
+  using: 'composite'
+  steps:
+    - shell: bash
+      run: >
+        helm upgrade --install ilias ${{ inputs.helm_chart }}
+        --namespace ${{ inputs.namespace }} --create-namespace
+        --set image.repository=${{ inputs.image_repository }}
+        --set image.tag=${{ inputs.image_tag }}
+        --set revisionHistoryLimit=1
+        --set-json args='["apache2-foreground", "-c", "StartServers 1", "-c", "MinSpareServers 1", "-c", "MaxSpareServers 2"]'
+        --set persistence.size=1Gi
+        --set mariadb.primary.persistence.size=1Gi
+        --set mariadb.primary.extraFlags='--innodb_buffer_pool_size=33554432 --key_buffer_size=10485760'
+        --set persistence.storageClass=cloudscale-volume-ssd
+        --set ingress.enabled=true
+        --set ingress.hostname=${{ inputs.ingress_hostname }}
+        --set iliasRootPassword=${{ inputs.ilias_root_password }}

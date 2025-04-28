@@ -9,6 +9,7 @@ on:
     branches:
       - "main"
       - "release_*"
+      - "feature/9/use_k8s_for_builds"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,24 +19,44 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: k8s-opencast
+    # Set permissions of the job
+    permissions:
+      contents: read
+      packages: write
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Log in to container registry
-        uses: docker/login-action@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+          submodules: true
 
-      - name: Build and push
-        uses: docker/build-push-action@v6
+      - name: Build ILIAS image
+        uses: opencast-ilias/actions/build-ilias@main
         with:
-          push: true
-          tags: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
-          build-args: |
-            ILIAS_VERSION=9
-            TARGET_DIR=/var/www/html
-            ILIAS_DEVMODE=1
-            ILIAS_INSTALL_ARGUMENTS=
+          ilias_image: "srsolutions/ilias:9"
+          destination: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy:
+    runs-on: k8s-opencast
+    needs: build
+    steps:
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+
+      - name: Configure Kubeconfig
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: Deploy the Helm chart
+        uses: opencast-ilias/actions/deploy-ilias@main
+        with:
+          namespace: review-test
+          image_repository: ghcr.io/opencast-ilias/reviewapps
+          image_tag: ${{ github.sha }}
+          ingress_hostname: test.opencast.k8s.sr.solutions

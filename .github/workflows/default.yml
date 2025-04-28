@@ -35,10 +35,6 @@ jobs:
 
       - name: Build ILIAS image
         uses: ./.github/actions/build-ilias
-        env:
-          REGISTRY: ghcr.io
-          REGISTRY_USER: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         with:
           ilias_image: "srsolutions/ilias:9"
           destination: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}

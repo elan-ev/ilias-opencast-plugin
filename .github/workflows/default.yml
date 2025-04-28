@@ -38,6 +38,7 @@ jobs:
         with:
           ilias_image: "srsolutions/ilias:9"
           destination: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
+          registry_password: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     runs-on: k8s-opencast

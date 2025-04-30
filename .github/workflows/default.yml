@@ -31,11 +31,14 @@ jobs:
           fetch-depth: 1
           submodules: true
 
+      - name: Inject enhanced GitHub environment variables
+        uses: rlespinasse/github-slug-action@v5
+
       - name: Build ILIAS image
         uses: opencast-ilias/actions/build-ilias@main
         with:
           ilias_image: "srsolutions/ilias:9"
-          destination: ghcr.io/opencast-ilias/reviewapps:${{ github.sha }}
+          destination: ghcr.io/${{ env.GITHUB_REPOSITORY_SLUG }}:${{ github.sha }}
           registry_password: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
@@ -51,10 +54,13 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
+      - name: Inject enhanced GitHub environment variables
+        uses: rlespinasse/github-slug-action@v5
+
       - name: Deploy the Helm chart
         uses: opencast-ilias/actions/deploy-ilias@main
         with:
-          namespace: review-release-9
-          image_repository: ghcr.io/opencast-ilias/reviewapps
+          namespace: review-${{ env.GITHUB_REF_NAME_SLUG_URL }}
+          image_repository: ghcr.io/${{ env.GITHUB_REPOSITORY_SLUG }}
           image_tag: ${{ github.sha }}
-          ingress_hostname: release-9.opencast.k8s.sr.solutions
+          ingress_hostname: ${{ env.GITHUB_REF_NAME_SLUG_URL }}.opencast.k8s.sr.solutions

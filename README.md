@@ -14,8 +14,8 @@ Build and deploy apps for development and review purposes.
 2. Check out a new branch based on the ILIAS version you want to target (e.g.
    ILIAS 9):
    ```
-   git checkout apps/release_9
-   git checkout -b apps/oc_pr_42
+   git checkout release_9
+   git checkout -b oc_pr_42
    ```
 
 3. Update the workflow definition in `.github/workflows/default.yml` and set
@@ -41,8 +41,7 @@ Build and deploy apps for development and review purposes.
    ```
 
 5. Commit and push your changes. The `build` and `deploy` jobs should run
-   automatically if the branch name starts with the prefix `apps/`.
-   You can verify and check the workflow state in the tab `Actions` on Github:
+   automatically. You can verify and check the workflow state in the tab `Actions` on Github:
    https://github.com/opencast-ilias/ReviewApps/actions
 
 6. Once the `deploy` job is completed, the app should become available under

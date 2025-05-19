@@ -46,3 +46,19 @@ Build and deploy apps for development and review purposes.
 
 6. Once the `deploy` job is completed, the app should become available under
    the subdomain set as `ingress_hostname` (see step 3) within a few minutes.
+
+### Syncing app data
+
+The script `k8s\_sync\_ilias` can be used to synchronize ILIAS data (iliasdata
+and database) between two apps and their respective Kubernetes namespaces. This
+is useful for example for copying basic configuration settings from one app to
+another.
+
+> [!caution]
+> This completely overwrites the data in the destination app/namespace
+
+Usage:
+
+```
+k8s_sync_ilias <source_ns> <destination_ns>
+```

@@ -49,7 +49,7 @@ Build and deploy apps for development and review purposes.
 
 ### Syncing app data
 
-The script `k8s\_sync\_ilias` can be used to synchronize ILIAS data (iliasdata
+The script `k8s_sync_ilias` can be used to synchronize ILIAS data (iliasdata
 and database) between two apps and their respective Kubernetes namespaces. This
 is useful for example for copying basic configuration settings from one app to
 another.

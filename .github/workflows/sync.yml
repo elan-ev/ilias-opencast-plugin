@@ -1,4 +1,4 @@
-name: Sync ILIAS data
+name: Sync ILIAS
 
 on:
   workflow_dispatch:

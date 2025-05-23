@@ -14,6 +14,12 @@ jobs:
   sync:
     runs-on: k8s-opencast
     steps:
+      - name: Configure Kubeconfig
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
       - name: Sync ILIAS data
         uses: opencast-ilias/actions/sync-ilias@main
         with:

@@ -40,15 +40,6 @@ jobs:
     runs-on: k8s-opencast
     needs: build
     steps:
-      - name: Install Helm
-        uses: azure/setup-helm@v4
-
-      - name: Configure Kubeconfig
-        uses: azure/k8s-set-context@v4
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-
       - name: Inject enhanced GitHub environment variables
         uses: rlespinasse/github-slug-action@v5
 

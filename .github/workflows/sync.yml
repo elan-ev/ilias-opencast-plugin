@@ -4,9 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       src_namespace:
+        description: Source namespace
         required: true
         default: review-release-9
       dest_namespace:
+        description: Destination namespace
         required: true
         default:
 

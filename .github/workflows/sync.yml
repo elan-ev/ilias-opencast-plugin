@@ -5,7 +5,7 @@ on:
     inputs:
       src_namespace:
         required: true
-        default: release-9
+        default: review-release-9
       dest_namespace:
         required: true
         default:

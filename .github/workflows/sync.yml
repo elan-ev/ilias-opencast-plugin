@@ -1,0 +1,21 @@
+name: Sync ILIAS data
+
+on:
+  workflow_dispatch:
+    inputs:
+      src_namespace:
+        required: true
+        default: release-9
+      dest_namespace:
+        required: true
+        default:
+
+jobs:
+  sync:
+    runs-on: k8s-opencast
+    steps:
+      - name: Sync ILIAS data
+        uses: opencast-ilias/actions/sync-ilias@main
+        with:
+          src_namespace: ${{ inputs.src_namespace }}
+          dest_namespace: ${{ inputs.dest_namespace }}

@@ -133,3 +133,24 @@ git commit -am "Updated ReviewApp for PR XY"
 git push -u
 ```
 
+> How can I run the ILIAS Setup (to update the plugin db steps)?
+
+You can trigger the ILIAS Setup by using a manual workflow in [Update ILIAS Actions](https://github.com/opencast-ilias/ReviewApps/actions/workflows/update.yml):
+
+![image](https://github.com/user-attachments/assets/24d3c966-3a8f-4ccc-939e-1726e88f0d8b)
+
+- Choose "Run Workflow"
+- Use Workflow from branch "release_9" fits for all release_9 based ReviewApps
+- Change the Namespace to "review-<Name of your App>"
+- Press "Run Workflow"
+
+The <Name of your App> is the same as in the URL (e.g. pr-435.opencast.…) or whatever you defined in [.github/workflows/default.yaml](https://github.com/opencast-ilias/ReviewApps/blob/release_9/.github/workflows/default.yml#L49).
+
+You then should see a "update" Job which logs the output of the ILIAS Setup:
+
+![image](https://github.com/user-attachments/assets/8591d722-2909-477a-b635-333c019d22fc)
+
+
+
+
+

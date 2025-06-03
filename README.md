@@ -62,3 +62,74 @@ Usage:
 ```
 k8s_sync_ilias <source_ns> <destination_ns>
 ```
+
+## FAQ
+
+> Why are we using an additional repository for ReviewApps and not jsut the Opencast-Repo?
+
+There are two important reasons for this:
+- Security: By using a private repository, we can control who is authorised to start ReviewApp. If we did this in a public repository, anyone (forks) could simply start new ReviewApps and obtain ILIAS installations that grant full access (including to the Opencast server via API).
+- Multi-plugins: By using submodules, we can pack any number of plugins into a ReviewApp. We use this in particular because, for example, the OpencastPageComponent plugin also requires the Opencast plugin.
+
+
+> How do I create a new ReviewApp from a Branch of my Opencast-Fork?
+
+Checkout the ReviewApp-Repo with the Branch which fits best for your Plugin-version (e.g. release_9)
+
+```
+git clone git@github.com:opencast-ilias/ReviewApps.git
+cd ReviewApps
+git checkout release_9
+```
+
+Create a new Branch for your ReviewApp, use a branch name which reflects the name of the ReviewApp, 
+most likely something like the PR number
+
+```
+git checkout -b pr-501
+```
+
+Set the Submodule-URL for the Plugin(s) to your fork, e.g. for the Opencast-Plugin. You may only need 
+to do this once if you always want to run your review apps from the same fork. It is best to prepare a 
+local branch from which you want to create new ReviewApp branches. 
+
+```
+git submodule set-url Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast https://github.com/srsolutionsag/OpenCast.git
+git submdule sync
+git submdule update 
+```
+
+Now checkout the branch of the plugin you want to add to the ReviewApp
+
+```
+git -C Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast checkout <branch_name>
+```
+
+Add the changes, commit and push:
+
+```
+git commit -am "ReviewApp for PR XY"
+git push -u
+```
+
+Follow the output of the Github-Actions here: [Actions](https://github.com/opencast-ilias/ReviewApps/actions).
+
+It starts with building the (ILIAS-)Image for this ReviewApp:
+<img width="1491" alt="Bildschirmfoto 2025-05-22 um 14 39 26" src="https://github.com/user-attachments/assets/a74fcb68-b54b-4e9b-933c-c41e4ed012ab" />
+
+After the second task (deploy) has been finished, you can find the URL of the ReviewApp in the log:
+<img width="1489" alt="Bildschirmfoto 2025-05-22 um 14 44 01" src="https://github.com/user-attachments/assets/e40830d8-03f9-4154-bc24-89b654e41488" />
+
+> How do I update a ReviewApp (to push new commits)?
+
+By using the example from above, you can:
+
+
+```
+git checkout -b pr-501
+git -C Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast checkout <branch_name>
+git -C Customizing/global/plugins/Services/Repository/RepositoryObject/OpenCast pull --rebase
+git commit -am "Updated ReviewApp for PR XY"
+git push -u
+```
+
